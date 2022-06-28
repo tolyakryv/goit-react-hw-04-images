@@ -8,9 +8,8 @@ class Searchbar extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const query = this.state.searchImg;
-    // fetchImg(this.state.searchImg, 1);
-    this.props.onSubmit(query);
+
+    this.props.onSubmit(this.state.searchImg);
   };
   changeInput = e => {
     this.setState({ searchImg: e.currentTarget.value.trim() });

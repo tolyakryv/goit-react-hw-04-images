@@ -1,6 +1,10 @@
 import Searchbar from './Searchbar/Searchbar';
 import React, { Component } from 'react';
 import imgAPI from './ImgAPI/imgAPI';
+import ImageGallery from './ImageGallery';
+import Button from './Button';
+import Loader from './Loader';
+import Modal from './Modal';
 import './styles.css';
 class App extends Component {
   state = {
@@ -10,9 +14,14 @@ class App extends Component {
     error: null,
     total: '',
   };
-  // componentDidUpdate() {
-  //   this.fetchImg();
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.searchText !== this.state.searchText ||
+      prevState.currentPage !== this.state.currentPage
+    ) {
+      this.fetchImg();
+    }
+  }
   onSubmitSearch = query => {
     this.setState({
       images: [],
@@ -21,7 +30,7 @@ class App extends Component {
       error: null,
       total: '',
     });
-    this.fetchImg();
+    // this.fetchImg();
   };
   fetchImg = () => {
     const { searchText, currentPage } = this.state;
@@ -35,8 +44,21 @@ class App extends Component {
       }));
     });
   };
+  onClickLoad = () => {
+    this.setState(prevState => ({ currentPage: prevState.currentPage + 1 }));
+  };
   render() {
-    return <Searchbar onSubmit={this.onSubmitSearch} />;
+    return (
+      <div className="App">
+        <Searchbar onSubmit={this.onSubmitSearch} />
+        {this.state.images.length > 0 && (
+          <ImageGallery images={this.state.images} />
+        )}
+        <Loader />
+        <Button onClick={this.onClickLoad} />
+        <Modal />
+      </div>
+    );
   }
 }
 export default App;
