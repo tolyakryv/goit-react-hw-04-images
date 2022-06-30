@@ -1,7 +1,12 @@
 import React from 'react';
-const ImageGalleryItem = ({ id, webImg }) => {
+const ImageGalleryItem = ({ id, webImg, openModal }) => {
   return (
-    <li className="ImageGalleryItem">
+    <li
+      className="ImageGalleryItem"
+      onClick={() => {
+        openModal(id);
+      }}
+    >
       <img
         id={id}
         className="ImageGalleryItem-image"

@@ -1,9 +1,14 @@
 import ImageGalleryItem from 'components/ImageGalleryItem';
-const ImageGallery = ({ images }) => {
+const ImageGallery = ({ images, openModal }) => {
   return (
     <ul className="ImageGallery">
       {images.map(({ id, webformatURL }) => (
-        <ImageGalleryItem key={id} id={id} webImg={webformatURL} />
+        <ImageGalleryItem
+          openModal={openModal}
+          key={id}
+          id={id}
+          webImg={webformatURL}
+        />
       ))}
     </ul>
   );

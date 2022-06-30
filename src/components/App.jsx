@@ -13,6 +13,8 @@ class App extends Component {
     searchText: '',
     error: null,
     total: '',
+    showModal: false,
+    largeImageURL: '',
   };
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -29,6 +31,8 @@ class App extends Component {
       searchText: query,
       error: null,
       total: '',
+      showModal: false,
+      largeImageURL: '',
     });
     // this.fetchImg();
   };
@@ -47,16 +51,29 @@ class App extends Component {
   onClickLoad = () => {
     this.setState(prevState => ({ currentPage: prevState.currentPage + 1 }));
   };
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  };
+  openModal = id => {
+    const findImg = this.state.images.find(e => e.id === id);
+    this.setState({ largeImageURL: findImg.largeImageURL });
+    this.toggleModal();
+  };
   render() {
     return (
       <div className="App">
         <Searchbar onSubmit={this.onSubmitSearch} />
         {this.state.images.length > 0 && (
-          <ImageGallery images={this.state.images} />
+          <ImageGallery openModal={this.openModal} images={this.state.images} />
         )}
         <Loader />
         <Button onClick={this.onClickLoad} />
-        <Modal />
+        {this.state.showModal && (
+          <Modal
+            onClose={this.toggleModal}
+            showImg={this.state.largeImageURL}
+          />
+        )}
       </div>
     );
   }
