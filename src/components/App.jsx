@@ -15,6 +15,7 @@ class App extends Component {
     total: '',
     showModal: false,
     largeImageURL: '',
+    showLoader: false,
   };
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -33,20 +34,24 @@ class App extends Component {
       total: '',
       showModal: false,
       largeImageURL: '',
+      showLoader: false,
     });
-    // this.fetchImg();
   };
   fetchImg = () => {
+    this.setState({ showLoader: true });
     const { searchText, currentPage } = this.state;
-    imgAPI(searchText, currentPage).then(({ hits, totalHits }) => {
-      const getImg = hits.map(({ id, webformatURL, largeImageURL }) => {
-        return { id, webformatURL, largeImageURL };
-      });
-      this.setState(prevState => ({
-        images: [...prevState.images, ...getImg],
-        total: totalHits,
-      }));
-    });
+    imgAPI(searchText, currentPage)
+      .then(({ hits, totalHits }) => {
+        const getImg = hits.map(({ id, webformatURL, largeImageURL }) => {
+          return { id, webformatURL, largeImageURL };
+        });
+        this.setState(prevState => ({
+          images: [...prevState.images, ...getImg],
+          total: totalHits,
+        }));
+      })
+      .catch(error => this.setState({ error }))
+      .finally(() => this.setState({ showLoader: false }));
   };
   onClickLoad = () => {
     this.setState(prevState => ({ currentPage: prevState.currentPage + 1 }));
@@ -60,19 +65,19 @@ class App extends Component {
     this.toggleModal();
   };
   render() {
+    const { error, images, showLoader, showModal, largeImageURL } = this.state;
     return (
       <div className="App">
         <Searchbar onSubmit={this.onSubmitSearch} />
-        {this.state.images.length > 0 && (
-          <ImageGallery openModal={this.openModal} images={this.state.images} />
+        {error && alert(error)}
+        {images.length > 0 && (
+          <ImageGallery openModal={this.openModal} images={images} />
         )}
-        <Loader />
-        <Button onClick={this.onClickLoad} />
-        {this.state.showModal && (
-          <Modal
-            onClose={this.toggleModal}
-            showImg={this.state.largeImageURL}
-          />
+        {showLoader && <Loader />}
+        {images.length > 0 && <Button onClick={this.onClickLoad} />}
+
+        {showModal && (
+          <Modal onClose={this.toggleModal} showImg={largeImageURL} />
         )}
       </div>
     );
