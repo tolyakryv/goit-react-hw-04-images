@@ -1,3 +1,4 @@
+import propTypes from 'prop-types';
 import React from 'react';
 const ImageGalleryItem = ({ id, webImg, openModal }) => {
   return (
@@ -17,3 +18,8 @@ const ImageGalleryItem = ({ id, webImg, openModal }) => {
   );
 };
 export default ImageGalleryItem;
+ImageGalleryItem.propTypes = {
+  id: propTypes.number.isRequired,
+  webImg: propTypes.string.isRequired,
+  openModal: propTypes.func.isRequired,
+};

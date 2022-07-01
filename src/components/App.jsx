@@ -12,7 +12,7 @@ class App extends Component {
     currentPage: 1,
     searchText: '',
     error: null,
-    total: '',
+    total: null,
     showModal: false,
     largeImageURL: '',
     showLoader: false,
@@ -23,6 +23,7 @@ class App extends Component {
       prevState.currentPage !== this.state.currentPage
     ) {
       this.fetchImg();
+      console.log(this.state);
     }
   }
   onSubmitSearch = query => {
@@ -31,7 +32,7 @@ class App extends Component {
       currentPage: 1,
       searchText: query,
       error: null,
-      total: '',
+      total: null,
       showModal: false,
       largeImageURL: '',
       showLoader: false,
@@ -65,7 +66,8 @@ class App extends Component {
     this.toggleModal();
   };
   render() {
-    const { error, images, showLoader, showModal, largeImageURL } = this.state;
+    const { error, images, showLoader, showModal, largeImageURL, total } =
+      this.state;
     return (
       <div className="App">
         <Searchbar onSubmit={this.onSubmitSearch} />
@@ -74,7 +76,9 @@ class App extends Component {
           <ImageGallery openModal={this.openModal} images={images} />
         )}
         {showLoader && <Loader />}
-        {images.length > 0 && <Button onClick={this.onClickLoad} />}
+        {images.length > 0 && total !== images.length && (
+          <Button onClick={this.onClickLoad} />
+        )}
 
         {showModal && (
           <Modal onClose={this.toggleModal} showImg={largeImageURL} />

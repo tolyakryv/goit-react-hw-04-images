@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 // import fetchImg from 'components/ImgAPI/imgAPI';
 
 class Searchbar extends Component {
@@ -36,3 +37,6 @@ class Searchbar extends Component {
   }
 }
 export default Searchbar;
+Searchbar.propTypes = {
+  onSubmit: propTypes.func.isRequired,
+};
