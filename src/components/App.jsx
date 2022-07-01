@@ -5,7 +5,7 @@ import ImageGallery from './ImageGallery';
 import Button from './Button';
 import Loader from './Loader';
 import Modal from './Modal';
-import './styles.css';
+import './App.css';
 class App extends Component {
   state = {
     images: [],

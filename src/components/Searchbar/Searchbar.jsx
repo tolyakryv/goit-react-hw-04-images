@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-// import fetchImg from 'components/ImgAPI/imgAPI';
-
+import './Searchbar.css';
 class Searchbar extends Component {
   state = {
     searchImg: '',

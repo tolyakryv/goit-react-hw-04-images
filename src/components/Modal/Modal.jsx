@@ -1,6 +1,7 @@
 import propTypes from 'prop-types';
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
+import './Modal.css';
 
 const modalRoot = document.querySelector('#modal-root');
 console.log(modalRoot);

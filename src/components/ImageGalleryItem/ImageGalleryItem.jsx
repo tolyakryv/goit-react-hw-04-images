@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
 import React from 'react';
+import './ImageGalleryItem.css';
 const ImageGalleryItem = ({ id, webImg, openModal }) => {
   return (
     <li

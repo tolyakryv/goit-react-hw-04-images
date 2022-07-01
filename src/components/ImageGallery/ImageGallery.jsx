@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
 import ImageGalleryItem from 'components/ImageGalleryItem';
+import './ImageGallery.css';
 const ImageGallery = ({ images, openModal }) => {
   return (
     <ul className="ImageGallery">
