@@ -1,11 +1,11 @@
 import Searchbar from './Searchbar/Searchbar';
 import React, { Component } from 'react';
-import imgAPI from './ImgAPI/imgAPI';
+import imgAPI from '../services/imgAPI';
 import ImageGallery from './ImageGallery';
 import Button from './Button';
 import Loader from './Loader';
 import Modal from './Modal';
-import './App.css';
+import s from './App.module.css';
 class App extends Component {
   state = {
     images: [],
@@ -69,7 +69,7 @@ class App extends Component {
     const { error, images, showLoader, showModal, largeImageURL, total } =
       this.state;
     return (
-      <div className="App">
+      <div className={s.App}>
         <Searchbar onSubmit={this.onSubmitSearch} />
         {error && alert(error)}
         {images.length > 0 && (

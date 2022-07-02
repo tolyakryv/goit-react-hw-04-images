@@ -1,17 +1,17 @@
 import propTypes from 'prop-types';
 import React from 'react';
-import './ImageGalleryItem.css';
+import s from './ImageGalleryItem.module.css';
 const ImageGalleryItem = ({ id, webImg, openModal }) => {
   return (
     <li
-      className="ImageGalleryItem"
+      className={s.imageGalleryItem}
       onClick={() => {
         openModal(id);
       }}
     >
       <img
         id={id}
-        className="ImageGalleryItem-image"
+        className={s.imageGalleryItemImage}
         src={webImg}
         alt={id}
       ></img>

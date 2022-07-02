@@ -1,9 +1,9 @@
 import propTypes from 'prop-types';
 import ImageGalleryItem from 'components/ImageGalleryItem';
-import './ImageGallery.css';
+import s from './ImageGallery.module.css';
 const ImageGallery = ({ images, openModal }) => {
   return (
-    <ul className="ImageGallery">
+    <ul className={s.imageGallery}>
       {images.map(({ id, webformatURL }) => (
         <ImageGalleryItem
           openModal={openModal}
