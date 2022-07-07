@@ -20,7 +20,6 @@ const App = () => {
     if (searchText !== '') {
       fetchImg();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText, currentPage]);
 
   const onSubmitSearch = query => {
