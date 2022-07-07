@@ -16,32 +16,40 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [largeImageURL, setLargeImageURL] = useState('');
   const [showLoader, setShowLoader] = useState(false);
+  const [getPage, setGetPage] = useState(false);
   useEffect(() => {
+    const fetchImg = () => {
+      setShowLoader(true);
+
+      imgAPI(searchText, currentPage)
+        .then(({ hits, totalHits }) => {
+          const getImg = hits.map(({ id, webformatURL, largeImageURL }) => {
+            return { id, webformatURL, largeImageURL };
+          });
+          setImages([...images, ...getImg]);
+          setTotal(totalHits);
+          setCurrentPage(currentPage + 1);
+          setShowLoader(false);
+        })
+        .catch(error => setError(error));
+      setGetPage(false);
+    };
+
     if (searchText !== '') {
-      fetchImg();
+      if (getPage) {
+        fetchImg();
+      }
     }
-  }, [searchText, currentPage]);
+  }, [searchText, currentPage, images, getPage]);
 
   const onSubmitSearch = query => {
     setImages([]);
     setSearchText(query);
+    setGetPage(true);
   };
-  const fetchImg = () => {
-    setShowLoader(true);
 
-    imgAPI(searchText, currentPage)
-      .then(({ hits, totalHits }) => {
-        const getImg = hits.map(({ id, webformatURL, largeImageURL }) => {
-          return { id, webformatURL, largeImageURL };
-        });
-        setImages([...images, ...getImg]);
-        setTotal(totalHits);
-        setShowLoader(false);
-      })
-      .catch(error => setError(error));
-  };
   const onClickLoad = () => {
-    setCurrentPage(currentPage + 1);
+    setGetPage(true);
   };
   const toggleModal = () => {
     setShowModal(!showModal);
