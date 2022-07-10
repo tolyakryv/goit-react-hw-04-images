@@ -28,7 +28,6 @@ const App = () => {
           });
           setImages([...images, ...getImg]);
           setTotal(totalHits);
-          setCurrentPage(currentPage + 1);
           setShowLoader(false);
         })
         .catch(error => setError(error));
@@ -45,10 +44,12 @@ const App = () => {
   const onSubmitSearch = query => {
     setImages([]);
     setSearchText(query);
+    setCurrentPage(1);
     setGetPage(true);
   };
 
   const onClickLoad = () => {
+    setCurrentPage(currentPage + 1);
     setGetPage(true);
   };
   const toggleModal = () => {
